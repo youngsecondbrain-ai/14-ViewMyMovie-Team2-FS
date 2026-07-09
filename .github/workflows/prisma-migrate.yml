@@ -1,0 +1,70 @@
+name: Prisma Migrate Deploy
+
+on:
+  push:
+    branches:
+      - develop
+      - main
+    paths:
+      - backend/prisma/schema.prisma
+      - backend/prisma/migrations/**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  migrate-development:
+    name: Migrate Development Database
+    runs-on: ubuntu-latest
+    if: github.ref_name == 'develop'
+    concurrency:
+      group: prisma-migrate-development
+      cancel-in-progress: false
+
+    env:
+      DATABASE_URL: ${{ secrets.DEV_DATABASE_URL }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Deploy Prisma migrations to development
+        run: npx --no-install prisma migrate deploy
+
+  migrate-production:
+    name: Migrate Production Database
+    runs-on: ubuntu-latest
+    if: github.ref_name == 'main'
+    environment: production
+    concurrency:
+      group: prisma-migrate-production
+      cancel-in-progress: false
+
+    env:
+      DATABASE_URL: ${{ secrets.PROD_DATABASE_URL }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Deploy Prisma migrations to production
+        run: npx --no-install prisma migrate deploy

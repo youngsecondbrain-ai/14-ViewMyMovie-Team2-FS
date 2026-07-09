@@ -1,0 +1,11 @@
+node_modules/
+frontend/dist/
+
+.env
+.env.*
+
+backend/prisma/migrations/
+
+.idea/
+.vite/
+.cache/

@@ -1,0 +1,41 @@
+:root {
+  --font-family-base: system-ui, sans-serif;
+
+  --brand-purple: #5533ff;
+  --error-red: #ff0005;
+  --black-400: #131313;
+  --black-300: #212121;
+  --black-200: #282828;
+  --black-100: #2e2e2e;
+  --gray-400: #333333;
+  --gray-300: #4b4b4b;
+  --gray-200: #747474;
+  --gray-100: #d8d8d8;
+  --pure-white: #ffffff;
+
+  --font-weight-bold: 700;
+  --font-weight-semibold: 600;
+  --font-weight-medium: 500;
+  --font-weight-regular: 400;
+
+  --font-size-20: 20px;
+  --font-size-18: 18px;
+  --font-size-16: 16px;
+  --font-size-14: 14px;
+  --font-size-12: 12px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  font-family: var(--font-family-base), serif;
+}
+
+#root {
+  min-height: 100vh;
+}

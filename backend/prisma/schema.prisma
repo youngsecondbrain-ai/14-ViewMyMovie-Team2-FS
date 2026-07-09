@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+
+
+model Movie {
+  id       String @id @default(uuid())
+
+  title    String
+  synopsis String
+  genre    Genre
+
+  posterImageUrl String?
+
+  accumulatedFundingAmount BigInt @default(0)
+  targetFundingAmount      BigInt
+
+  fundingDeadline DateTime
+
+  expectationScore Int @default(0)
+  selectionCount   Int @default(0)
+
+  fundings Funding[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+}
+
+model Funding {
+  id      String @id @default(uuid())
+  movieId String?
+  movie   Movie? @relation(fields: [movieId], references: [id], onDelete: SetNull)
+
+  nickname      String
+  fundingAmount BigInt
+  comment       String?
+  passwordHash  String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Genre {
+  ACTION
+  DRAMA
+  ROMANCE
+  THRILLER
+  COMEDY
+  HORROR
+  SF
+  FANTASY
+  ANIMATION
+  DOCUMENTARY
+}

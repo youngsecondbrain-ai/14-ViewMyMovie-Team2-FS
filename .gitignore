@@ -27,9 +27,9 @@ lerna-debug.log*
 
 # Prisma
 # Keep schema and migrations tracked.
-# Do not ignore prisma/schema.prisma or prisma/migrations.
-prisma/*.db
-prisma/*.db-journal
+# Do not ignore backend/prisma/schema.prisma or backend/prisma/migrations.
+backend/prisma/*.db
+backend/prisma/*.db-journal
 
 # OS files
 .DS_Store
@@ -90,3 +90,4 @@ test-results/
 
 # Misc
 *.local
+/backend/src/generated/prisma

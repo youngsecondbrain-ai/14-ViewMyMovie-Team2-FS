@@ -1,0 +1,22 @@
+# Default application/code ownership
+* @codeit-fs14-part2-team1/fs14-project1-team1
+
+# Repository governance and project rules
+/.github/ @taewon-w
+/.husky/ @taewon-w
+
+# Package and dependency management
+/package.json @taewon-w
+/package-lock.json @taewon-w
+
+# Code quality and commit rules
+/eslint.config.js @taewon-w
+/.prettierrc @taewon-w
+/.prettierignore @taewon-w
+/commitlint.config.cjs @taewon-w
+
+# Environment variable contract
+/.env.example @taewon-w
+
+# Gitignore
+/.gitignore @taewon-w
