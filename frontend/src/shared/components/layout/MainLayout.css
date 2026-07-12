@@ -1,0 +1,28 @@
+.main-layout {
+  --layout-padding: 16px;
+
+  min-height: 100vh;
+  background-color: var(--black-400);
+  color: var(--pure-white);
+}
+
+.main-layout__content {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: var(--layout-padding);
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+  .main-layout {
+    --layout-padding: 24px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1200px) {
+  .main-layout {
+    --layout-padding: 0;
+  }
+}
