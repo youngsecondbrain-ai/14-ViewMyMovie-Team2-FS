@@ -1,0 +1,54 @@
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pageGroup {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.button,
+.pageButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 48px;
+  height: 48px;
+  gap: 10px;
+  opacity: 1;
+  border-radius: 10px;
+  padding: 12px;
+
+  background: rgba(46, 46, 46, 1);
+  color: rgba(116, 116, 116, 1);
+  font-size: 18px;
+
+  cursor: pointer;
+}
+
+.pageButton.active {
+  background: rgba(255, 255, 255, 1);
+  color: rgba(0, 0, 0, 1);
+}
+
+/* 모바일 버전 적용 */
+@media (max-width: 768px) {
+  .button,
+  .pageButton {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    padding: 4px;
+
+    font-size: 16px;
+  }
+
+  .pageButton.active {
+    background: rgba(85, 51, 255, 1);
+    color: rgba(255, 255, 255, 1);
+  }
+}
