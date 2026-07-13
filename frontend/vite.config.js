@@ -4,6 +4,7 @@ import { fileURLToPath, URL } from 'node:url'
 
 export default defineConfig({
   root: fileURLToPath(new URL('.', import.meta.url)),
+  envDir: fileURLToPath(new URL('..', import.meta.url)),
   plugins: [react()],
   build: {
     outDir: 'dist',

@@ -1,6 +1,6 @@
-# View My Movie
+# MovieFun:D
 
-View My Movie는 영화 크라우드 펀딩을 주제로 만든 팀 프로젝트입니다. 사용자가 영화 목록을 둘러보고, 관심 있는 영화에 펀딩하거나 기대작을 비교해볼 수 있는 서비스를 목표로 합니다.
+MovieFun:D는 영화 크라우드 펀딩을 주제로 만든 팀 프로젝트입니다. 사용자가 영화 목록을 둘러보고, 관심 있는 영화에 펀딩하거나 기대작을 비교해볼 수 있는 서비스를 목표로 합니다.
 
 이 README는 팀원이 프로젝트를 처음 내려받았을 때 필요한 내용을 빠르게 확인할 수 있도록 정리한 문서입니다. 로컬 실행 방법, 브랜치 전략, 커밋 규칙, 폴더 구조를 한곳에서 확인할 수 있습니다.
 
@@ -39,8 +39,8 @@ nvm use
 ### 설치
 
 ```bash
-git clone https://github.com/codeit-fs14-part2-team1/14-ViewMyMovie-Team2-FS.git
-cd 14-ViewMyMovie-Team2-FS
+git clone https://github.com/codeit-fs14-part2-team1/14-MovieFunD-Team2-FS.git movie-fun-d
+cd movie-fun-d
 npm install
 ```
 
@@ -67,17 +67,20 @@ npm run prisma:studio
 
 ### 로컬 실행
 
-프론트엔드 개발 서버:
+프론트엔드와 백엔드 개발 서버를 함께 실행합니다. 프론트엔드는 Vite 개발 서버로, 백엔드는 Node.js의 watch 모드로 실행되어 파일 변경 시 자동으로 반영됩니다.
 
 ```bash
 npm run dev
 ```
 
-백엔드 서버:
+각 서버를 개별적으로 실행하려면 아래 명령어를 사용합니다.
 
 ```bash
-npm run start
+npm run dev:fe
+npm run dev:be
 ```
+
+`npm run start`는 watch 모드 없이 Express 백엔드 서버만 실행하는 배포용 명령어입니다.
 
 기본 포트는 다음과 같습니다.
 
@@ -89,7 +92,7 @@ npm run start
 
 ## 환경 변수
 
-`.env.example`을 기준으로 `.env`를 생성합니다.
+`.env.example`을 기준으로 프로젝트 루트에 `.env`를 생성합니다. Express와 Prisma뿐 아니라 Vite도 루트의 환경 변수 파일을 사용하며, 프론트엔드 코드에는 `VITE_` 접두사가 붙은 변수만 노출됩니다.
 
 | 이름            | 설명                                  |
 | --------------- | ------------------------------------- |
@@ -100,37 +103,52 @@ npm run start
 
 ## 주요 명령어
 
-| 명령어                    | 설명                              |
-| ------------------------- | --------------------------------- |
-| `npm run dev`             | Vite 프론트엔드 개발 서버 실행    |
-| `npm run build`           | 프론트엔드 프로덕션 빌드          |
-| `npm run preview`         | 빌드 결과 미리보기                |
-| `npm run start`           | Express 백엔드 서버 실행          |
-| `npm run lint`            | ESLint 검사                       |
-| `npm run lint:fix`        | ESLint 자동 수정                  |
-| `npm run format`          | Prettier로 전체 포맷팅            |
-| `npm run format:check`    | Prettier 포맷 검사                |
-| `npm run prisma:generate` | Prisma Client 생성                |
-| `npm run prisma:migrate`  | Prisma 마이그레이션 실행          |
-| `npm run prisma:studio`   | Prisma Studio 실행                |
-| `npm run precommit`       | 커밋 대상 파일에 lint-staged 실행 |
+| 명령어                    | 설명                                     |
+| ------------------------- | ---------------------------------------- |
+| `npm run dev`             | 프론트엔드와 백엔드 개발 서버 동시 실행  |
+| `npm run dev:fe`          | Vite 프론트엔드 개발 서버만 실행         |
+| `npm run dev:be`          | watch 모드로 Express 백엔드 서버만 실행  |
+| `npm run build`           | 프론트엔드 프로덕션 빌드                 |
+| `npm run preview`         | 프론트엔드 빌드 결과 미리보기            |
+| `npm run start`           | watch 모드 없이 Express 백엔드 서버 실행 |
+| `npm run lint`            | ESLint 검사                              |
+| `npm run lint:fix`        | ESLint 자동 수정                         |
+| `npm run format`          | Prettier로 전체 포맷팅                   |
+| `npm run format:check`    | Prettier 포맷 검사                       |
+| `npm run prisma:generate` | Prisma Client 생성                       |
+| `npm run prisma:migrate`  | Prisma 개발 마이그레이션 실행            |
+| `npm run prisma:studio`   | Prisma Studio 실행                       |
+| `npm run precommit`       | 커밋 대상 파일에 lint-staged 실행        |
 
 ## 폴더 구조
 
 현재 프로젝트는 프론트엔드와 백엔드를 분리해서 관리합니다.
 
 ```txt
-movie-crowdfund/
+movie-fun-d/
   frontend/
     public/
     src/
       app/
       assets/
+        images/
       features/
-      pages/
-        movies/
-        funding/
         comparison/
+          api/
+          components/
+          hooks/
+          styles/
+        funding/
+          api/
+          components/
+          hooks/
+          styles/
+        movies/
+          api/
+          components/
+          hooks/
+          styles/
+      pages/
       shared/
         components/
         constants/
@@ -140,6 +158,9 @@ movie-crowdfund/
         utils/
 
   backend/
+    prisma/
+      migrations/
+      seed-data/
     src/
       config/
       controllers/
@@ -148,39 +169,33 @@ movie-crowdfund/
       services/
       utils/
       validators/
-    prisma/
-      migrations/
-      schema.prisma
-      seed.js
 
   .github/
     workflows/
-      ci.yml
-      prisma-migrate.yml
-    CODEOWNERS
-    pull_request_template.md
 
   .husky/
-    pre-commit
-    commit-msg
 ```
 
 ### Frontend
 
 - `frontend/src/app`: 앱의 최상위 컴포넌트
-- `frontend/src/pages`: 페이지 단위 기능
+- `frontend/src/pages`: 라우트별 페이지 컴포넌트
 - `frontend/src/shared`: 여러 페이지에서 재사용하는 공통 코드
-- `frontend/src/features`: 페이지에 종속되지 않는 기능 단위 코드
+- `frontend/src/features`: 영화, 펀딩, 비교 도메인별 API, 컴포넌트, 훅, 스타일
 
 ### Backend
 
-- `backend/src/app.js`: Express 앱 설정
-- `backend/src/server.js`: 서버 실행 진입점
+- `backend/src`: Express 백엔드 애플리케이션 코드
+- `backend/src/config`: Prisma Client 등 공통 설정
 - `backend/src/routes`: API 라우터
 - `backend/src/controllers`: 요청과 응답 처리
+- `backend/src/middlewares`: Express 미들웨어
 - `backend/src/services`: 비즈니스 로직
+- `backend/src/utils`: 백엔드 공통 유틸리티
 - `backend/src/validators`: Superstruct 기반 검증 로직
-- `backend/prisma/schema.prisma`: Prisma 데이터 모델
+- `backend/prisma`: Prisma 스키마, 마이그레이션, 시드 관련 구성
+- `backend/prisma/migrations`: 데이터베이스 마이그레이션 이력
+- `backend/prisma/seed-data`: 영화와 펀딩 더미 데이터
 
 현재 기본 API는 `/health`입니다.
 

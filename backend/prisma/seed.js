@@ -1,20 +1,8 @@
-import 'dotenv/config'
 import process from 'node:process'
-import { PrismaClient } from '@prisma/client'
-import { PrismaPg } from '@prisma/adapter-pg'
+import { prisma } from '../src/config/prisma.js'
+import { hashPassword } from '../src/utils/passwords.js'
 import { mockMovies } from './seed-data/mockMovies.js'
 import { mockFundings } from './seed-data/mockFundings.js'
-import { hashPassword } from '../src/utils/passwords.js'
-
-if (!process.env.DATABASE_URL) {
-  throw new Error('DATABASE_URL이 설정되어 있지 않습니다.')
-}
-
-const adapter = new PrismaPg({
-  connectionString: process.env.DATABASE_URL,
-})
-
-const prisma = new PrismaClient({ adapter })
 
 async function main() {
   await prisma.funding.deleteMany()
@@ -60,7 +48,7 @@ async function main() {
 main()
   .catch((error) => {
     console.error(error)
-    process.exit(1)
+    process.exitCode = 1
   })
   .finally(async () => {
     await prisma.$disconnect()
