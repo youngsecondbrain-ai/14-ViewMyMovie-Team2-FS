@@ -30,8 +30,8 @@
 }
 
 .pageButton.active {
-  background: var(--pure-white);
-  color: var(--black-400);
+  background: var(--brand-purple);
+  color: var(--pure-white);
 }
 
 /* 모바일 버전 적용 */
